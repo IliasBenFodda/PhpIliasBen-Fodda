@@ -22,4 +22,7 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
     Route::resource('users', UserController::class);
+    Route::patch('/admin/users/{user}/change-role', [UserController::class, 'changeRole'])
+        ->name('users.changeRole');
 });
+

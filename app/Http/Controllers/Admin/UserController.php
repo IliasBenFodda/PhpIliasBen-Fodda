@@ -64,4 +64,13 @@ class UserController extends Controller
     {
         //
     }
+
+    public function changeRole(User $user)
+    {
+        $user->update([
+            'role' => $user->role === 'admin' ? 'user' : 'admin'
+        ]);
+
+        return redirect()->back()->with('success', 'je hebt de rol van de user aangepast');
+    }
 }
