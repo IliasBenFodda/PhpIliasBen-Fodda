@@ -13,41 +13,57 @@
         @csrf
     </form>
 
-    <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6">
+    <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6" enctype="multipart/form-data">
         @csrf
         @method('patch')
 
         <div>
             <x-input-label for="name" :value="__('Name')"/>
-            <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name', $user->name)"
+            <x-text-input id="name" name="name" type="text"
+                          class="mt-1 block w-full"
+                          :value="old('name', $user->name)"
                           required autofocus autocomplete="name"/>
             <x-input-error class="mt-2" :messages="$errors->get('name')"/>
         </div>
 
         <div>
             <x-input-label for="email" :value="__('Email')"/>
-            <x-text-input id="email" name="email" type="email" class="mt-1 block w-full"
-                          :value="old('email', $user->email)" required autocomplete="username"/>
+            <x-text-input id="email" name="email" type="email"
+                          class="mt-1 block w-full"
+                          :value="old('email', $user->email)"
+                          required autocomplete="username"/>
             <x-input-error class="mt-2" :messages="$errors->get('email')"/>
+        </div>
 
-            @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail())
-                <div>
-                    <p class="text-sm mt-2 text-gray-800">
-                        {{ __('Your email address is unverified.') }}
+        <div>
+            <x-input-label for="birthday" value="Verjaardag"/>
+            <x-text-input id="birthday" name="birthday" type="date"
+                          class="mt-1 block w-full"
+                          :value="old('birthday', $user->birthday)"/>
+            <x-input-error class="mt-2" :messages="$errors->get('birthday')"/>
+        </div>
 
-                        <button form="send-verification"
-                                class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                            {{ __('Click here to re-send the verification email.') }}
-                        </button>
-                    </p>
+        <div>
+            <x-input-label for="about_me" value="Over mij"/>
+            <textarea id="about_me" name="about_me"
+                      class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
+                {{ old('about_me', $user->about_me) }}
+            </textarea>
+            <x-input-error class="mt-2" :messages="$errors->get('about_me')"/>
+        </div>
 
-                    @if (session('status') === 'verification-link-sent')
-                        <p class="mt-2 font-medium text-sm text-green-600">
-                            {{ __('A new verification link has been sent to your email address.') }}
-                        </p>
-                    @endif
-                </div>
+        <div>
+            <x-input-label for="profile_picture" value="Profielfoto"/>
+
+            @if($user->profile_picture)
+                <img src="{{ asset('storage/' . $user->profile_picture) }}"
+                     class="w-20 h-20 rounded-full mt-2 mb-2" alt="huidige profiel foto">
             @endif
+
+            <input id="profile_picture" name="profile_picture" type="file"
+                   class="mt-1 block w-full"/>
+
+            <x-input-error class="mt-2" :messages="$errors->get('profile_picture')"/>
         </div>
 
         <div class="flex items-center gap-4">
