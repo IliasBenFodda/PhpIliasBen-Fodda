@@ -14,6 +14,9 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('admin.users.index')" :active="request()->routeIs('admin.users.index')">
+                        {{ __('Users') }}
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -94,6 +97,11 @@
                 <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                     {{ __('Dashboard') }}
                 </x-responsive-nav-link>
+                DD
+                <x-responsive-nav-link :href="route('admin.users.index')"
+                                       :active="request()->routeIs('admin.users.index')">
+                    {{ __('Users') }}
+                </x-responsive-nav-link>
             </div>
 
             <div class="pt-4 pb-1 border-t border-gray-200">
@@ -112,6 +120,11 @@
                     <x-responsive-nav-link :href="route('profile.show', Auth::user())">
                         Publiek profiel
                     </x-responsive-nav-link>
+
+                    <x-responsive-nav-link :href="route('admin.users.index', Auth::user())">
+                        uSERS
+                    </x-responsive-nav-link>
+
 
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
