@@ -1,6 +1,6 @@
 <x-app-layout>
     <div>
-        {{-- Categorie aanmaken --}}
+
         <div>
             <h2>Nieuwe categorie</h2>
 
@@ -19,7 +19,7 @@
             @endif
         </div>
 
-        {{-- FAQ aanmaken --}}
+
         <div>
             <h2>FAQ toevoegen</h2>
 
