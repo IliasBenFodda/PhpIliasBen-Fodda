@@ -2,6 +2,7 @@
 
 require __DIR__ . '/auth.php';
 
+use App\Http\Controllers\FaqController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\UserController;
@@ -9,6 +10,8 @@ use App\Http\Controllers\Admin\UserController;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/faq', [FaqController::class, 'index'])->name('faq.index');
 
 Route::get('/profile/{user}', [ProfileController::class, 'show'])->name('profile.show');
 

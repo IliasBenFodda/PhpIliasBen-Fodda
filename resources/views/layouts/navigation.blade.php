@@ -16,10 +16,16 @@
                     </x-nav-link>
 
                     @if(auth()->user()->isAdmin())
-                    <x-nav-link :href="route('admin.users.index')" :active="request()->routeIs('admin.users.index')">
-                        {{ __('Users') }}
-                    </x-nav-link>
+                        <x-nav-link :href="route('admin.users.index')"
+                                    :active="request()->routeIs('admin.users.index')">
+                            {{ __('Users') }}
+                        </x-nav-link>
                     @endif
+
+
+                    <x-nav-link :href="route('faq.index')" :active="request()->routeIs('faq.index')">
+                        {{__('Faq')}}
+                    </x-nav-link>
 
                 </div>
             </div>
