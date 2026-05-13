@@ -2,6 +2,7 @@
 
 require __DIR__ . '/auth.php';
 
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -29,5 +30,8 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::resource('users', UserController::class);
     Route::patch('/admin/users/{user}/change-role', [UserController::class, 'changeRole'])
         ->name('users.changeRole');
+    Route::get('/faq/create', [FaqController::class, 'create'])->name('faq.create');
+    Route::post('/faq', [FaqController::class, 'store'])->name('faq.store');
+    Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
 });
 
