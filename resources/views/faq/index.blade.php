@@ -7,6 +7,14 @@
 
             @forelse ($category->faqs as $faq)
                 <div class="bg-white rounded-lg border p-4 mb-3">
+
+                    <div class="flex gap-6 justify-end">
+                        <form action="{{route("admin.faq.destroy",$faq->id)}}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit"><i class="fa-solid fa-trash"></i></button>
+                        </form>
+                    </div>
                     <p class="font-semibold text-gray-800">{{ $faq->question }}</p>
 
                     @if ($faq->answer)

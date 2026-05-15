@@ -21,6 +21,10 @@ class FaqController extends Controller
         return view('admin.faq.create', compact('categories'));
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function store(Request $request)
     {
         $request->validate([
@@ -31,6 +35,12 @@ class FaqController extends Controller
 
         Faq::create($request->only('question', 'answer', 'category_id'));
 
+        return redirect()->route('faq.index');
+    }
+
+    public function destroy(Faq $faq)
+    {
+        $faq->delete();
         return redirect()->route('faq.index');
     }
 }
