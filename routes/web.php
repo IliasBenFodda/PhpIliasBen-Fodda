@@ -4,6 +4,7 @@ require __DIR__ . '/auth.php';
 
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -15,7 +16,10 @@ Route::get('/', function () {
 Route::get('/faq', [FaqController::class, 'index'])->name('faq.index');
 
 Route::get('/profile/{user}', [ProfileController::class, 'show'])->name('profile.show');
-
+Route::post('/contact', [ContactController::class, 'send'])->name('contact.send');
+Route::get('/contact', function () {
+    return view('contact.index');
+})->name('contact');
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');

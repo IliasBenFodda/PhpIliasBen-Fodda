@@ -10,3 +10,5 @@
 - Profielfoto
     - https://laravel-news.com/uploading-files-laravel
     - https://medium.com/@rohitdhiman91/file-upload-in-laravel-a-beginner-friendly-guide-73952ed5a34a
+- Email
+- https://medium.com/@rohitdhiman91/sending-emails-in-laravel-with-mailtrap-a-beginners-guide-06ab2c69f64c
