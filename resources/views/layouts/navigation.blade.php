@@ -15,12 +15,14 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
 
-                    @if(auth()->user()->isAdmin())
-                        <x-nav-link :href="route('admin.users.index')"
-                                    :active="request()->routeIs('admin.users.index')">
-                            {{ __('Users') }}
-                        </x-nav-link>
-                    @endif
+                    @auth
+                        @if(auth()->user()->isAdmin())
+                            <x-nav-link :href="route('admin.users.index')"
+                                        :active="request()->routeIs('admin.users.index')">
+                                {{ __('Users') }}
+                            </x-nav-link>
+                        @endif
+                    @endauth
 
 
                     <x-nav-link :href="route('faq.index')" :active="request()->routeIs('faq.index')">
