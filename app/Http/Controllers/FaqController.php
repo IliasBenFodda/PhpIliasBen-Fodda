@@ -43,4 +43,25 @@ class FaqController extends Controller
         $faq->delete();
         return redirect()->route('faq.index');
     }
+
+    public function edit($id)
+    {
+        $faq = Faq::findOrFail($id);
+        $categories = Category::all();
+        return view('admin.faq.edit', compact('faq', 'categories'));
+    }
+
+    public function update(Request $request, Faq $faq)
+    {
+        $request->validate([
+            'question' => 'required|string|max:255',
+            'answer' => 'nullable|string',
+            'category_id' => 'nullable|exists:categories,id',
+        ]);
+
+        $faq->update($request->only('question', 'answer', 'category_id'));
+
+        return redirect()->route('faq.index')
+            ->with('success', 'FAQ succesvol bijgewerkt.');
+    }
 }
