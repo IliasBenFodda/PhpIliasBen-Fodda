@@ -18,4 +18,12 @@ class CategoryController extends Controller
 
         return redirect()->route('admin.faq.create')->with('success', 'Categorie aangemaakt!');
     }
+
+    public function destroy(Category $category)
+    {
+        $category->delete();
+
+        return redirect()->back()
+            ->with('success', 'Categorie verwijderd.');
+    }
 }
