@@ -6,13 +6,17 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\FaqController;
+use App\Http\Controllers\NieuwsController;
+use App\Http\Controllers\OnderwerpController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/nieuws', [NieuwsController::class, 'index'])->name('nieuws.index');
 
+Route::get('/nieuws/{nieuws}', [NieuwsController::class, 'show'])->name('nieuws.show');
 Route::get('/faq', [FaqController::class, 'index'])->name('faq.index');
 
 Route::get('/profile/{user}', [ProfileController::class, 'show'])->name('profile.show');
@@ -30,16 +34,35 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
-    Route::resource('users', UserController::class);
-    Route::patch('/admin/users/{user}/change-role', [UserController::class, 'changeRole'])
-        ->name('users.changeRole');
-    Route::get('/faq/create', [FaqController::class, 'create'])->name('faq.create');
-    Route::post('/faq', [FaqController::class, 'store'])->name('faq.store');
-    Route::get('/faq/{faq}/edit', [FaqController::class, 'edit'])->name('faq.edit');
-    Route::put('/faq/{faq}', [FaqController::class, 'update'])->name('faq.update');
-    Route::delete('/faq/{faq}', [FaqController::class, 'destroy'])->name('faq.destroy');
-    Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
-    Route::delete('/categories/{category}', [CategoryController::class, 'destroy'])->name('categories.destroy');
-});
+Route::middleware(['auth', 'admin'])->prefix('admin')
+    ->name('admin.')
+    ->group(function () {
 
+        Route::resource('users', UserController::class);
+
+        Route::patch('/users/{user}/change-role', [UserController::class, 'changeRole'])
+            ->name('users.changeRole');
+
+        Route::get('/faq/create', [FaqController::class, 'create'])->name('faq.create');
+        Route::post('/faq', [FaqController::class, 'store'])->name('faq.store');
+        Route::get('/faq/{faq}/edit', [FaqController::class, 'edit'])->name('faq.edit');
+        Route::put('/faq/{faq}', [FaqController::class, 'update'])->name('faq.update');
+        Route::delete('/faq/{faq}', [FaqController::class, 'destroy'])->name('faq.destroy');
+
+        Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
+        Route::delete('/categories/{category}', [CategoryController::class, 'destroy'])->name('categories.destroy');
+
+        Route::get('/nieuws', [NieuwsController::class, 'adminIndex'])->name('nieuws.index');
+
+        Route::get('/nieuws/create', [NieuwsController::class, 'create'])->name('nieuws.create');
+
+        Route::post('/nieuws', [NieuwsController::class, 'store'])->name('nieuws.store');
+
+        Route::get('/nieuws/{nieuws}/edit', [NieuwsController::class, 'edit'])->name('nieuws.edit');
+
+        Route::put('/nieuws/{nieuws}', [NieuwsController::class, 'update'])->name('nieuws.update');
+
+        Route::delete('/nieuws/{nieuws}', [NieuwsController::class, 'destroy'])->name('nieuws.destroy');
+
+        Route::resource('onderwerpen', OnderwerpController::class);
+    });

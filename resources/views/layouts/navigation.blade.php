@@ -28,7 +28,6 @@
                     <x-nav-link :href="route('faq.index')" :active="request()->routeIs('faq.index')">
                         {{__('Faq')}}
                     </x-nav-link>
-
                 </div>
             </div>
 
