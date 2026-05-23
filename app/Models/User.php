@@ -23,6 +23,15 @@ class User extends Authenticatable
         return $this->role === 'admin';
     }
 
+    public function profilePictureUrl(): ?string
+    {
+        if (!$this->profile_picture) {
+            return null;
+        }
+
+        return storage_public_url($this->profile_picture);
+    }
+
     /**
      * Get the attributes that should be cast.
      *
@@ -35,6 +44,7 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
     public function faqs(): HasMany
     {
         return $this->hasMany(Faq::class);

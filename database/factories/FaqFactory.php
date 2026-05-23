@@ -21,7 +21,7 @@ class FaqFactory extends Factory
         return [
             'question' => fake()->sentence() . '?',
             'answer' => fake()->paragraph(),
-            'category_id' => Category::factory(),
+            'category_id' => Category::inRandomOrder()->first()?->id,
             'user_id' => null,
         ];
     }

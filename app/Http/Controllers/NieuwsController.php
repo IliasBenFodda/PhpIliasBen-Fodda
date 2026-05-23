@@ -57,6 +57,7 @@ class NieuwsController extends Controller
     public function edit(Nieuws $nieuws)
     {
         $onderwerpen = Onderwerp::all();
+//        dd($onderwerpen);
 
         return view('admin.nieuws.edit', compact('nieuws', 'onderwerpen'));
     }

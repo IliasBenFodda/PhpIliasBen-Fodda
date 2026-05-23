@@ -20,10 +20,8 @@ Route::get('/nieuws/{nieuws}', [NieuwsController::class, 'show'])->name('nieuws.
 Route::get('/faq', [FaqController::class, 'index'])->name('faq.index');
 
 Route::get('/profile/{user}', [ProfileController::class, 'show'])->name('profile.show');
+Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::post('/contact', [ContactController::class, 'send'])->name('contact.send');
-Route::get('/contact', function () {
-    return view('contact.index');
-})->name('contact');
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -50,6 +48,8 @@ Route::middleware(['auth', 'admin'])->prefix('admin')
         Route::delete('/faq/{faq}', [FaqController::class, 'destroy'])->name('faq.destroy');
 
         Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
+        Route::get('/categories/{category}/edit', [CategoryController::class, 'edit'])->name('categories.edit');
+        Route::put('/categories/{category}', [CategoryController::class, 'update'])->name('categories.update');
         Route::delete('/categories/{category}', [CategoryController::class, 'destroy'])->name('categories.destroy');
 
         Route::get('/nieuws', [NieuwsController::class, 'adminIndex'])->name('nieuws.index');

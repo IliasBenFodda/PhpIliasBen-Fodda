@@ -19,6 +19,22 @@ class CategoryController extends Controller
         return redirect()->route('admin.faq.create')->with('success', 'Categorie aangemaakt!');
     }
 
+    public function edit(Category $category)
+    {
+        return view('admin.categories.edit', compact('category'));
+    }
+
+    public function update(Request $request, Category $category)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255|unique:categories,name,' . $category->id,
+        ]);
+
+        $category->update(['name' => $request->name]);
+
+        return redirect()->route('faq.index')->with('success', 'Categorie bijgewerkt.');
+    }
+
     public function destroy(Category $category)
     {
         $category->delete();

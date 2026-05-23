@@ -22,7 +22,7 @@
             <x-text-input id="name" name="name" type="text"
                           class="mt-1 block w-full"
                           :value="old('name', $user->name)"
-                          required autofocus autocomplete="name"/>
+                          required autofocus autocomplete="name" maxlength="255"/>
             <x-input-error class="mt-2" :messages="$errors->get('name')"/>
         </div>
 
@@ -31,7 +31,7 @@
             <x-text-input id="email" name="email" type="email"
                           class="mt-1 block w-full"
                           :value="old('email', $user->email)"
-                          required autocomplete="username"/>
+                          required autocomplete="username" maxlength="255"/>
             <x-input-error class="mt-2" :messages="$errors->get('email')"/>
         </div>
 
@@ -39,7 +39,8 @@
             <x-input-label for="birthday" value="Verjaardag"/>
             <x-text-input id="birthday" name="birthday" type="date"
                           class="mt-1 block w-full"
-                          :value="old('birthday', $user->birthday)"/>
+                          :value="old('birthday', $user->birthday)"
+                          max="{{ date('Y-m-d') }}"/>
             <x-input-error class="mt-2" :messages="$errors->get('birthday')"/>
         </div>
 
@@ -55,13 +56,17 @@
         <div>
             <x-input-label for="profile_picture" value="Profielfoto"/>
 
-            @if($user->profile_picture)
-                <img src="{{ asset('storage/' . $user->profile_picture) }}"
-                     class="w-20 h-20 rounded-full mt-2 mb-2" alt="huidige profiel foto">
+            @if($user->profilePictureUrl())
+                <div class="mt-3 mb-4 flex items-center gap-4">
+                    <img src="{{ $user->profilePictureUrl() }}"
+                         class="w-24 h-24 rounded-full object-cover ring-2 ring-indigo-100 shrink-0"
+                         alt="Huidige profielfoto">
+                    <p class="text-sm text-gray-500">Huidige profielfoto. Kies een nieuw bestand om te vervangen.</p>
+                </div>
             @endif
 
-            <input id="profile_picture" name="profile_picture" type="file"
-                   class="mt-1 block w-full"/>
+            <input id="profile_picture" name="profile_picture" type="file" accept="image/jpeg,image/png,image/webp"
+                   class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-medium file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100"/>
 
             <x-input-error class="mt-2" :messages="$errors->get('profile_picture')"/>
         </div>
