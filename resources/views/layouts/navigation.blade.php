@@ -9,7 +9,7 @@
                     </a>
                 </div>
 
-                <div class="hidden sm:flex sm:items-center sm:gap-6 sm:flex-wrap">
+                <div class="hidden sm:flex sm:items-center sm:gap-6">
                     @auth
                         <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                             {{ __('Dashboard') }}
@@ -32,30 +32,45 @@
                         <x-nav-link :href="route('forum.index')" :active="request()->routeIs('forum.*')">
                             Forum
                         </x-nav-link>
+
                         @if(auth()->user()->isAdmin())
-                            <x-nav-link :href="route('admin.nieuws.index')"
-                                        :active="request()->routeIs('admin.nieuws.*')">
-                                Nieuws beheer
-                            </x-nav-link>
-                            <x-nav-link :href="route('admin.faq.create')" :active="request()->routeIs('admin.faq.*')">
-                                FAQ beheer
-                            </x-nav-link>
-                            <x-nav-link :href="route('admin.users.index')"
-                                        :active="request()->routeIs('admin.users.*')">
-                                Gebruikers
-                            </x-nav-link>
-                            <x-nav-link :href="route('admin.contact.index')"
-                                        :active="request()->routeIs('admin.contact.*')">
-                                Contactberichten
-                            </x-nav-link>
-                            <x-nav-link :href="route('admin.contact.index')"
-                                        :active="request()->routeIs('admin.contact.*')">
-                                Contactberichten
-                            </x-nav-link>
-                            <x-nav-link :href="route('admin.faq.suggestions.index')"
-                                        :active="request()->routeIs('admin.faq.suggestions.*')">
-                                FAQ-voorstellen
-                            </x-nav-link>
+                            <x-dropdown align="left" width="48">
+                                <x-slot name="trigger">
+                                    <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md
+                                        {{ request()->routeIs('admin.*') ? 'text-gray-900 border-b-2 border-indigo-400' : 'text-gray-500' }}
+                                        bg-white hover:text-gray-700 focus:outline-none transition">
+                                        <span>Admin</span>
+                                        <svg class="ms-1 fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
+                                             viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd"
+                                                  d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                                  clip-rule="evenodd"/>
+                                        </svg>
+                                    </button>
+                                </x-slot>
+                                <x-slot name="content">
+                                    <x-dropdown-link :href="route('admin.nieuws.index')"
+                                                     class="{{ request()->routeIs('admin.nieuws.*') ? 'bg-gray-100' : '' }}">
+                                        📰 Nieuws beheer
+                                    </x-dropdown-link>
+                                    <x-dropdown-link :href="route('admin.faq.create')"
+                                                     class="{{ request()->routeIs('admin.faq.*') && !request()->routeIs('admin.faq.suggestions.*') ? 'bg-gray-100' : '' }}">
+                                        ❓ FAQ beheer
+                                    </x-dropdown-link>
+                                    <x-dropdown-link :href="route('admin.faq.suggestions.index')"
+                                                     class="{{ request()->routeIs('admin.faq.suggestions.*') ? 'bg-gray-100' : '' }}">
+                                        💡 FAQ-voorstellen
+                                    </x-dropdown-link>
+                                    <x-dropdown-link :href="route('admin.users.index')"
+                                                     class="{{ request()->routeIs('admin.users.*') ? 'bg-gray-100' : '' }}">
+                                        👥 Gebruikers
+                                    </x-dropdown-link>
+                                    <x-dropdown-link :href="route('admin.contact.index')"
+                                                     class="{{ request()->routeIs('admin.contact.*') ? 'bg-gray-100' : '' }}">
+                                        📬 Contactberichten
+                                    </x-dropdown-link>
+                                </x-slot>
+                            </x-dropdown>
                         @endif
                     @endauth
                 </div>
@@ -116,6 +131,7 @@
         </div>
     </div>
 
+    <!-- Mobiel menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
             @auth
@@ -133,20 +149,22 @@
                 <x-responsive-nav-link :href="route('forum.index')" :active="request()->routeIs('forum.*')">Forum
                 </x-responsive-nav-link>
                 @if(auth()->user()->isAdmin())
+                    <div class="px-4 pt-2 pb-1 text-xs font-semibold text-gray-400 uppercase tracking-wider">Admin</div>
                     <x-responsive-nav-link :href="route('admin.nieuws.index')"
-                                           :active="request()->routeIs('admin.nieuws.*')">Nieuws beheer
+                                           :active="request()->routeIs('admin.nieuws.*')">📰 Nieuws beheer
                     </x-responsive-nav-link>
                     <x-responsive-nav-link :href="route('admin.faq.create')"
-                                           :active="request()->routeIs('admin.faq.*')">FAQ beheer
-                    </x-responsive-nav-link>
-                    <x-responsive-nav-link :href="route('admin.users.index')"
-                                           :active="request()->routeIs('admin.users.*')">Gebruikers
+                                           :active="request()->routeIs('admin.faq.*') && !request()->routeIs('admin.faq.suggestions.*')">
+                        ❓ FAQ beheer
                     </x-responsive-nav-link>
                     <x-responsive-nav-link :href="route('admin.faq.suggestions.index')"
-                                           :active="request()->routeIs('admin.faq.suggestions.*')">FAQ-voorstellen
+                                           :active="request()->routeIs('admin.faq.suggestions.*')">💡 FAQ-voorstellen
+                    </x-responsive-nav-link>
+                    <x-responsive-nav-link :href="route('admin.users.index')"
+                                           :active="request()->routeIs('admin.users.*')">👥 Gebruikers
                     </x-responsive-nav-link>
                     <x-responsive-nav-link :href="route('admin.contact.index')"
-                                           :active="request()->routeIs('admin.contact.*')">Contactberichten
+                                           :active="request()->routeIs('admin.contact.*')">📬 Contactberichten
                     </x-responsive-nav-link>
                 @endif
             @endauth
