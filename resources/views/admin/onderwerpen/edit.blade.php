@@ -4,7 +4,7 @@
         @csrf
         @method('PUT')
 
-        <input name="name" value="{{ $onderwerp->name }}">
+        <input name="name" value="{{ $onderwerp->name }}" required maxlength="255">
 
         <button>Update</button>
     </form>
