@@ -29,6 +29,9 @@
                     </x-nav-link>
 
                     @auth
+                        <x-nav-link :href="route('forum.index')" :active="request()->routeIs('forum.*')">
+                            Forum
+                        </x-nav-link>
                         @if(auth()->user()->isAdmin())
                             <x-nav-link :href="route('admin.nieuws.index')"
                                         :active="request()->routeIs('admin.nieuws.*')">
@@ -115,6 +118,8 @@
             <x-responsive-nav-link :href="route('contact')" :active="request()->routeIs('contact')">Contact
             </x-responsive-nav-link>
             @auth
+                <x-responsive-nav-link :href="route('forum.index')" :active="request()->routeIs('forum.*')">Forum
+                </x-responsive-nav-link>
                 @if(auth()->user()->isAdmin())
                     <x-responsive-nav-link :href="route('admin.nieuws.index')"
                                            :active="request()->routeIs('admin.nieuws.*')">Nieuws beheer

@@ -9,6 +9,8 @@ use App\Http\Controllers\FaqController;
 use App\Http\Controllers\NieuwsController;
 use App\Http\Controllers\OnderwerpController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReplyController;
+use App\Http\Controllers\ThreadController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -30,6 +32,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::prefix('forum')->name('forum.')->group(function () {
+        Route::get('/', [ThreadController::class, 'index'])->name('index');
+        Route::get('/create', [ThreadController::class, 'create'])->name('create');
+        Route::post('/', [ThreadController::class, 'store'])->name('store');
+        Route::get('/{thread}', [ThreadController::class, 'show'])->name('show');
+        Route::post('/{thread}/replies', [ReplyController::class, 'store'])->name('replies.store');
+    });
 });
 
 Route::middleware(['auth', 'admin'])->prefix('admin')
