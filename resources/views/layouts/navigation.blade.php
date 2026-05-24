@@ -48,6 +48,14 @@
                                         :active="request()->routeIs('admin.contact.*')">
                                 Contactberichten
                             </x-nav-link>
+                            <x-nav-link :href="route('admin.contact.index')"
+                                        :active="request()->routeIs('admin.contact.*')">
+                                Contactberichten
+                            </x-nav-link>
+                            <x-nav-link :href="route('admin.faq.suggestions.index')"
+                                        :active="request()->routeIs('admin.faq.suggestions.*')">
+                                FAQ-voorstellen
+                            </x-nav-link>
                         @endif
                     @endauth
                 </div>
@@ -133,6 +141,9 @@
                     </x-responsive-nav-link>
                     <x-responsive-nav-link :href="route('admin.users.index')"
                                            :active="request()->routeIs('admin.users.*')">Gebruikers
+                    </x-responsive-nav-link>
+                    <x-responsive-nav-link :href="route('admin.faq.suggestions.index')"
+                                           :active="request()->routeIs('admin.faq.suggestions.*')">FAQ-voorstellen
                     </x-responsive-nav-link>
                     <x-responsive-nav-link :href="route('admin.contact.index')"
                                            :active="request()->routeIs('admin.contact.*')">Contactberichten

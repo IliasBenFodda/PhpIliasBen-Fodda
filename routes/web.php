@@ -4,9 +4,11 @@ require __DIR__ . '/auth.php';
 
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ContactController as AdminContactController;
+use App\Http\Controllers\Admin\FaqSuggestionController as AdminFaqSuggestionController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\FaqController;
+use App\Http\Controllers\FaqSuggestionController;
 use App\Http\Controllers\NieuwsController;
 use App\Http\Controllers\OnderwerpController;
 use App\Http\Controllers\ProfileController;
@@ -33,6 +35,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::get('/faq/suggest', [FaqSuggestionController::class, 'create'])->name('faq.suggestions.create');
+    Route::post('/faq/suggest', [FaqSuggestionController::class, 'store'])->name('faq.suggestions.store');
 
     Route::prefix('forum')->name('forum.')->group(function () {
         Route::get('/', [ThreadController::class, 'index'])->name('index');
@@ -80,4 +85,8 @@ Route::middleware(['auth', 'admin'])->prefix('admin')
         Route::get('/contact', [AdminContactController::class, 'index'])->name('contact.index');
         Route::patch('/contact/{message}/read', [AdminContactController::class, 'markRead'])->name('contact.markRead');
         Route::delete('/contact/{message}', [AdminContactController::class, 'destroy'])->name('contact.destroy');
+
+        Route::get('/faq/suggestions', [AdminFaqSuggestionController::class, 'index'])->name('faq.suggestions.index');
+        Route::patch('/faq/suggestions/{suggestion}/approve', [AdminFaqSuggestionController::class, 'approve'])->name('faq.suggestions.approve');
+        Route::patch('/faq/suggestions/{suggestion}/reject', [AdminFaqSuggestionController::class, 'reject'])->name('faq.suggestions.reject');
     });
