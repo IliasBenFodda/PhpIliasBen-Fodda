@@ -29,16 +29,22 @@
 
                         <div>
                             <x-input-label for="role" value="Rol"/>
-                            <select id="role" name="role" required
-                                    class="block mt-1 w-full border-gray-300 rounded-md shadow-sm">
-                                <option value="user" {{ old('role', $user->role) === 'user' ? 'selected' : '' }}>
-                                    Gebruiker
-                                </option>
-                                <option value="admin" {{ old('role', $user->role) === 'admin' ? 'selected' : '' }}>
-                                    Beheerder
-                                </option>
-                            </select>
-                            <x-input-error :messages="$errors->get('role')" class="mt-2"/>
+                            @if(auth()->id() === $user->id)
+                                <input type="hidden" name="role" value="admin">
+                                <p class="mt-1 text-sm text-gray-500 italic">Je kunt je eigen beheerdersrol niet
+                                    wijzigen.</p>
+                            @else
+                                <select id="role" name="role" required
+                                        class="block mt-1 w-full border-gray-300 rounded-md shadow-sm">
+                                    <option value="user" {{ old('role', $user->role) === 'user' ? 'selected' : '' }}>
+                                        Gebruiker
+                                    </option>
+                                    <option value="admin" {{ old('role', $user->role) === 'admin' ? 'selected' : '' }}>
+                                        Beheerder
+                                    </option>
+                                </select>
+                                <x-input-error :messages="$errors->get('role')" class="mt-2"/>
+                            @endif
                         </div>
 
                         <div class="flex items-center gap-4">

@@ -51,6 +51,10 @@ class UserController extends Controller
             'role' => 'required|in:user,admin',
         ]);
 
+        if ($user->id === auth()->id() && $validated['role'] !== 'admin') {
+            return redirect()->back()->with('error', 'Je kunt je eigen beheerdersrechten niet verwijderen.');
+        }
+
         $user->update($validated);
 
         return redirect()->route('admin.users.index')->with('success', 'Gebruiker bijgewerkt.');
