@@ -187,7 +187,7 @@ Wachtwoord: Password!321
 
 ## Gebruikte bronnen
 
-- Logi n
+- Login
     - https://medium.com/@galiherlanggadev/laravel-auth-page-with-breeze-d51db7b117e3
     - https://laraveldaily.com/lesson/laravel-beginners/login-register-breeze
 - Migraties
