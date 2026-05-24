@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\ContactFormMail;
+use App\Models\ContactMessage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
@@ -22,6 +23,8 @@ class ContactController extends Controller
         ]);
 
         $data = $request->only('name', 'email', 'message');
+
+        ContactMessage::create($data);
 
         Mail::to(config('mail.admin_address', 'admin@ehb.be'))->send(new ContactFormMail($data));
 

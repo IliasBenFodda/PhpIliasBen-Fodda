@@ -3,6 +3,7 @@
 require __DIR__ . '/auth.php';
 
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ContactController as AdminContactController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\FaqController;
@@ -75,4 +76,8 @@ Route::middleware(['auth', 'admin'])->prefix('admin')
         Route::delete('/nieuws/{nieuws}', [NieuwsController::class, 'destroy'])->name('nieuws.destroy');
 
         Route::resource('onderwerpen', OnderwerpController::class);
+
+        Route::get('/contact', [AdminContactController::class, 'index'])->name('contact.index');
+        Route::patch('/contact/{message}/read', [AdminContactController::class, 'markRead'])->name('contact.markRead');
+        Route::delete('/contact/{message}', [AdminContactController::class, 'destroy'])->name('contact.destroy');
     });

@@ -44,6 +44,10 @@
                                         :active="request()->routeIs('admin.users.*')">
                                 Gebruikers
                             </x-nav-link>
+                            <x-nav-link :href="route('admin.contact.index')"
+                                        :active="request()->routeIs('admin.contact.*')">
+                                Contactberichten
+                            </x-nav-link>
                         @endif
                     @endauth
                 </div>
@@ -129,6 +133,9 @@
                     </x-responsive-nav-link>
                     <x-responsive-nav-link :href="route('admin.users.index')"
                                            :active="request()->routeIs('admin.users.*')">Gebruikers
+                    </x-responsive-nav-link>
+                    <x-responsive-nav-link :href="route('admin.contact.index')"
+                                           :active="request()->routeIs('admin.contact.*')">Contactberichten
                     </x-responsive-nav-link>
                 @endif
             @endauth
