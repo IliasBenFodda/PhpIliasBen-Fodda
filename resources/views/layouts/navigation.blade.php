@@ -33,6 +33,11 @@
                             Forum
                         </x-nav-link>
 
+                        <x-nav-link :href="route('conversations.index')"
+                                    :active="request()->routeIs('conversations.*')">
+                            Chats
+                        </x-nav-link>
+
                         @if(auth()->user()->isAdmin())
                             <x-dropdown align="left" width="48">
                                 <x-slot name="trigger">
@@ -147,6 +152,9 @@
             </x-responsive-nav-link>
             @auth
                 <x-responsive-nav-link :href="route('forum.index')" :active="request()->routeIs('forum.*')">Forum
+                </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('conversations.index')"
+                                       :active="request()->routeIs('conversations.*')">Chats
                 </x-responsive-nav-link>
                 @if(auth()->user()->isAdmin())
                     <div class="px-4 pt-2 pb-1 text-xs font-semibold text-gray-400 uppercase tracking-wider">Admin</div>

@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\ContactController as AdminContactController;
 use App\Http\Controllers\Admin\FaqSuggestionController as AdminFaqSuggestionController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\ConversationController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\FaqSuggestionController;
 use App\Http\Controllers\NieuwsController;
@@ -45,6 +46,14 @@ Route::middleware('auth')->group(function () {
         Route::post('/', [ThreadController::class, 'store'])->name('store');
         Route::get('/{thread}', [ThreadController::class, 'show'])->name('show');
         Route::post('/{thread}/replies', [ReplyController::class, 'store'])->name('replies.store');
+    });
+
+    Route::prefix('conversations')->name('conversations.')->group(function () {
+        Route::get('/', [ConversationController::class, 'index'])->name('index');
+        Route::get('/new', [ConversationController::class, 'create'])->name('create');
+        Route::post('/', [ConversationController::class, 'store'])->name('store');
+        Route::get('/{conversation}', [ConversationController::class, 'show'])->name('show');
+        Route::post('/{conversation}/messages', [ConversationController::class, 'sendMessage'])->name('messages.store');
     });
 });
 

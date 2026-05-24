@@ -51,6 +51,14 @@ plek voor nieuws, FAQ, forum en contactmogelijkheden, met een volledig uitgewerk
 
 - Overzicht van contactberichten, gebruikers, nieuws, FAQ en voorgestelde FAQ-vragen
 
+#### 💬 Gebruiker-tot-gebruiker chat
+
+- Ingelogde gebruikers kunnen een privéchat starten met een andere gebruiker
+- Overzichtspagina toont alle actieve chats met naam, laatste bericht en tijdstip
+- Bij het starten van een chat wordt een bestaande chat hergebruikt (geen duplicaten)
+- Berichten worden weergegeven als chatbubbels (eigen berichten rechts, ontvangen links)
+- Enkel tekstberichten mogelijk
+
 ---
 
 ## Implementatie van elke technische vereiste
@@ -101,12 +109,13 @@ plek voor nieuws, FAQ, forum en contactmogelijkheden, met een volledig uitgewerk
 | **One-to-many** — Thread → Replies              | `app/Models/Thread.php`    | L20        |
 | **Many-to-many** — Nieuws ↔ Onderwerp           | `app/Models/Nieuws.php`    | L24        |
 | **Many-to-many** — Nieuws ↔ Onderwerp (inverse) | `app/Models/Onderwerp.php` | L17        |
+| **Many-to-many** — User ↔ Conversation (chat)   | `app/Models/User.php`      | L64        |
 
 ### Database
 
 | Vereiste                       | Bestand                                                                      |
 |--------------------------------|------------------------------------------------------------------------------|
-| Migraties                      | `database/migrations/` (14 migratiebestanden)                                |
+| Migraties                      | `database/migrations/` (16 migratiebestanden)                                |
 | Seeders                        | `database/seeders/AdminSeeder.php`, `CategorySeeder.php`, `NieuwsSeeder.php` |
 | Default admin (`admin@ehb.be`) | `database/seeders/AdminSeeder.php`                                           |
 
